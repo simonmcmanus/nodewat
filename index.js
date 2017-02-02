@@ -22,6 +22,8 @@ chokidar.watch(folder + '/node_modules/**/package.json', {
 
             if (path.slice(-12) === 'package.json') {
                 var removePackage = require(path);
+
+
                 fs.lstat(path.slice(0, -12), (err, stats) => {
 
                     if (err) {
@@ -29,9 +31,17 @@ chokidar.watch(folder + '/node_modules/**/package.json', {
                     }
 
                     if (stats.isSymbolicLink()) {
-                        console.log('    ' + removePackage.name + '@' + removePackage.version);
-                        console.log('    ' + chalk.grey(path.replace(folder, ' ')))
-                        console.log('');
+
+                        fs.realpath(path, (err, realPath) => {
+
+                            console.log('    ' + removePackage.name + '@' + removePackage.version);
+                            console.log('    ' + chalk.grey(path.replace(folder, ' ')))
+                            console.log('      Real path:')
+                            console.log('       ' + chalk.grey(realPath))
+                            console.log('');
+
+                        });
+
                     }
                 })
             }
