@@ -6,6 +6,8 @@ var chokidar = require('chokidar')
 var fs = require('fs')
 var chalk = require('chalk')
 var folder = process.cwd();
+var exec = require('child_process').exec;
+
 
 console.log('');
 console.log(chalk.green('Watching folder:'));
@@ -34,11 +36,18 @@ chokidar.watch(folder + '/node_modules/**/package.json', {
 
                         fs.realpath(path, (err, realPath) => {
 
-                            console.log('    ' + removePackage.name + '@' + removePackage.version);
-                            console.log('    ' + chalk.grey(path.replace(folder, ' ')))
-                            console.log('      Real path:')
-                            console.log('       ' + chalk.grey(realPath))
-                            console.log('');
+
+                            // get the branch
+                            exec("git rev-parse --abbrev-ref HEAD", {cwd: path.slice(0, -12)}, function (error, branch, stderr) {
+                                if (error !== null) {
+                                    return console.log('exec error: ' + error);
+                                }
+
+                                console.log('    ' + removePackage.name + '@' + removePackage.version + chalk.grey(' git:') +  chalk.red(branch));
+                                console.log('    ' + chalk.grey(path.replace(folder, ' '))  + ' -> ' )
+                                console.log('     ' + chalk.grey(realPath))
+                                console.log('');
+                            });
 
                         });
 
