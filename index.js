@@ -10,7 +10,7 @@ var exec = require('child_process').exec;
 
 
 console.log('');
-console.log(chalk.green('Watching folder:'));
+console.log(chalk.green('Folder:'));
 console.log(chalk.grey(folder));
 console.log('');
 
