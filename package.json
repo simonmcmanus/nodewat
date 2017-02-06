@@ -1,6 +1,6 @@
 {
   "name": "nodewat",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Find out wats going on in your node modules directory. Currently just highlight symlinks",
   "main": "index.js",
   "bin": {
