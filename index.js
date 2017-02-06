@@ -27,7 +27,7 @@ chokidar.watch(folder + '/node_modules/**/package.json', {})
                 fs.lstat(path.slice(0, -12), (err, stats) => {
 
                     if (err) {
-                        throw(err)
+                        return console.log(err)
                     }
 
                     if (stats.isSymbolicLink()) {
