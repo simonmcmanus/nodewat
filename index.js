@@ -14,7 +14,7 @@ console.log(chalk.green('Folder:'));
 console.log(chalk.grey(folder));
 console.log('');
 
-chokidar.watch(folder + '/node_modules/**/package.json', {})
+chokidar.watch(folder + '/node_modules/**/package.json', { persistent: false })
 .on('all', (event, path) => {
     if(event === 'add' || event === 'change')  {
 
